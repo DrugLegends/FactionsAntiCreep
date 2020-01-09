@@ -1,6 +1,7 @@
 package me.rayzr522.factionsanticreep;
 
 import me.rayzr522.factionsanticreep.command.CommandFactionsAntiCreep;
+import me.rayzr522.factionsanticreep.listeners.PlayerListener;
 import me.rayzr522.factionsanticreep.utils.MessageHandler;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -8,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 /**
@@ -16,6 +18,8 @@ import java.util.logging.Level;
 public class FactionsAntiCreep extends JavaPlugin {
     private static FactionsAntiCreep instance;
     private MessageHandler messages = new MessageHandler();
+
+    private long maxOfflineTime = Long.MAX_VALUE;
 
     /**
      * @return The current instance of FactionsAntiCreep.
@@ -33,6 +37,8 @@ public class FactionsAntiCreep extends JavaPlugin {
 
         // Set up commands
         getCommand("factionsanticreep").setExecutor(new CommandFactionsAntiCreep(this));
+
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
     }
 
     @Override
@@ -48,6 +54,8 @@ public class FactionsAntiCreep extends JavaPlugin {
         reloadConfig();
 
         messages.load(getConfig("messages.yml"));
+
+        maxOfflineTime = TimeUnit.SECONDS.toMillis(getConfig().getInt("max-offline-time"));
     }
 
     /**
@@ -127,4 +135,7 @@ public class FactionsAntiCreep extends JavaPlugin {
         return messages;
     }
 
+    public long getMaxOfflineTime() {
+        return maxOfflineTime;
+    }
 }

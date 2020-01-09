@@ -1,0 +1,2 @@
+# The number of seconds a player can be offline in enemy territory before it TP's them back to spawn when they log in.
+max-offline-time: 600
