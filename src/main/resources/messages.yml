@@ -22,3 +22,6 @@ command:
                 &7/factionsanticreep &chelp|? &8-&6 Shows this help message.
         version: "You are running &c%s&6 version &c%s&6."
         reloaded: "Reloaded the config successfully!"
+
+event:
+    teleported: "You were teleported to spawn because you were logged out in enemy territory for 10 minutes or more."

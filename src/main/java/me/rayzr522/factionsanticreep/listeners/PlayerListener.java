@@ -1,7 +1,6 @@
 package me.rayzr522.factionsanticreep.listeners;
 
 import com.massivecraft.factions.*;
-import com.massivecraft.factions.struct.Relation;
 import me.rayzr522.factionsanticreep.FactionsAntiCreep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,6 +38,7 @@ public class PlayerListener implements Listener {
                 break;
             default:
                 e.getPlayer().teleport(e.getPlayer().getWorld().getSpawnLocation());
+                e.getPlayer().sendMessage(plugin.tr("event.teleported"));
         }
     }
 }
