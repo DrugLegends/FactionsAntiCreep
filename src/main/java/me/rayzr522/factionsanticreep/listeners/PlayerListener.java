@@ -34,7 +34,8 @@ public class PlayerListener implements Listener {
         switch (fPlayer.getRelationTo(faction)) {
             case ALLY:
             case TRUCE:
-                // only ally & truce are safe
+            case MEMBER:
+                // only ally, truce & members are safe
                 break;
             default:
                 e.getPlayer().teleport(e.getPlayer().getWorld().getSpawnLocation());

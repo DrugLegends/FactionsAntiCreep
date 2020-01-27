@@ -17,8 +17,8 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>illyria</id>
+            <url>https://nexus.illyria.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -30,9 +30,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.ProSavage</groupId>
+            <groupId>com.massivecraft</groupId>
             <artifactId>SavageFactions</artifactId>
-            <version>1.6.x-0.1.21-gbdd5473-400</version>
+            <version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-6</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
