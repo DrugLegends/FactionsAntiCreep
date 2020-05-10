@@ -1,6 +1,10 @@
 package me.rayzr522.factionsanticreep.listeners;
 
-import com.massivecraft.factions.*;
+import com.massivecraft.factions.entity.BoardColl;
+import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.FactionColl;
+import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.massivecore.ps.PS;
 import me.rayzr522.factionsanticreep.FactionsAntiCreep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,15 +27,15 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        FPlayer fPlayer = FPlayers.getInstance().getByPlayer(e.getPlayer());
-        Faction faction = Board.getInstance().getFactionAt(new FLocation(e.getPlayer().getLocation()));
+        MPlayer factionPlayer = MPlayer.get(e.getPlayer());
+        Faction faction = BoardColl.get().getFactionAt(PS.valueOf(e.getPlayer().getLocation()));
 
-        if (fPlayer == null || faction == null || !faction.isNormal()) {
+        if (factionPlayer == null || faction == null || !faction.isNormal() || FactionColl.get().getWarzone().equals(faction)) {
             // either player isn't in a faction or there is no (real) faction
             return;
         }
 
-        switch (fPlayer.getRelationTo(faction)) {
+        switch (factionPlayer.getRelationTo(faction)) {
             case ALLY:
             case TRUCE:
             case MEMBER:
