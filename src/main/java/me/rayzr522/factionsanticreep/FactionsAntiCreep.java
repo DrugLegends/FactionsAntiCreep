@@ -1,14 +1,21 @@
 package me.rayzr522.factionsanticreep;
 
 import me.rayzr522.factionsanticreep.command.CommandFactionsAntiCreep;
+import me.rayzr522.factionsanticreep.command.CommandHomeWrapper;
+import me.rayzr522.factionsanticreep.command.CommandSetHomeWrapper;
 import me.rayzr522.factionsanticreep.listeners.PlayerListener;
+import me.rayzr522.factionsanticreep.listeners.PluginListener;
+import me.rayzr522.factionsanticreep.utils.CommandWrapper;
 import me.rayzr522.factionsanticreep.utils.MessageHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -18,6 +25,7 @@ import java.util.logging.Level;
 public class FactionsAntiCreep extends JavaPlugin {
     private static FactionsAntiCreep instance;
     private MessageHandler messages = new MessageHandler();
+    private final Set<CommandWrapper> commandWrapperSet = new HashSet<>();
 
     private long maxOfflineTime = Long.MAX_VALUE;
 
@@ -39,11 +47,30 @@ public class FactionsAntiCreep extends JavaPlugin {
         getCommand("factionsanticreep").setExecutor(new CommandFactionsAntiCreep(this));
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        getServer().getPluginManager().registerEvents(new PluginListener(this), this);
+
+        hookCommandWrappers();
     }
 
     @Override
     public void onDisable() {
+        unhookCommandWrappers();
+
         instance = null;
+    }
+
+    public void hookCommandWrappers() {
+        if (Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
+            commandWrapperSet.add(new CommandHomeWrapper(this, Bukkit.getPluginCommand("home")));
+            commandWrapperSet.add(new CommandSetHomeWrapper(this, Bukkit.getPluginCommand("sethome")));
+        }
+
+        commandWrapperSet.forEach(CommandWrapper::hook);
+    }
+
+    public void unhookCommandWrappers() {
+        commandWrapperSet.forEach(CommandWrapper::unhook);
+        commandWrapperSet.clear();
     }
 
     /**
