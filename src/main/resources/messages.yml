@@ -24,4 +24,6 @@ command:
         reloaded: "Reloaded the config successfully!"
 
 event:
-    teleported: "You were teleported to spawn because you were logged out in enemy territory for 10 minutes or more."
+    teleported: "&cYou were teleported to spawn because you were logged out in enemy territory for 10 minutes or more."
+    home-removed: "&cYour home '%s' was removed because it was in enemy land / warzone."
+    sethome-prevented: "&cYou cannot set a home here because you are in enemy land / warzone."

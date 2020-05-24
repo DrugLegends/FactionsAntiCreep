@@ -1,14 +1,14 @@
 package me.rayzr522.factionsanticreep.listeners;
 
-import com.massivecraft.factions.entity.BoardColl;
-import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.FactionColl;
-import com.massivecraft.factions.entity.MPlayer;
-import com.massivecraft.massivecore.ps.PS;
 import me.rayzr522.factionsanticreep.FactionsAntiCreep;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import static me.rayzr522.factionsanticreep.utils.FactionUtil.isEnemyLand;
+import static me.rayzr522.factionsanticreep.utils.FactionUtil.isWarzone;
 
 public class PlayerListener implements Listener {
     private final FactionsAntiCreep plugin;
@@ -19,7 +19,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        long lastPlayed = e.getPlayer().getLastPlayed();
+        Player player = e.getPlayer();
+        long lastPlayed = player.getLastPlayed();
         long now = System.currentTimeMillis();
 
         if (now - lastPlayed < plugin.getMaxOfflineTime()) {
@@ -27,23 +28,11 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        MPlayer factionPlayer = MPlayer.get(e.getPlayer());
-        Faction faction = BoardColl.get().getFactionAt(PS.valueOf(e.getPlayer().getLocation()));
+        Location location = player.getLocation();
 
-        if (factionPlayer == null || faction == null || !faction.isNormal() || FactionColl.get().getWarzone().equals(faction)) {
-            // either player isn't in a faction or there is no (real) faction
-            return;
-        }
-
-        switch (factionPlayer.getRelationTo(faction)) {
-            case ALLY:
-            case TRUCE:
-            case MEMBER:
-                // only ally, truce & members are safe
-                break;
-            default:
-                e.getPlayer().teleport(e.getPlayer().getWorld().getSpawnLocation());
-                e.getPlayer().sendMessage(plugin.tr("event.teleported"));
+        if (isEnemyLand(player, location) || isWarzone(location)) {
+            player.teleport(player.getWorld().getSpawnLocation());
+            player.sendMessage(plugin.tr("event.teleported"));
         }
     }
 }
