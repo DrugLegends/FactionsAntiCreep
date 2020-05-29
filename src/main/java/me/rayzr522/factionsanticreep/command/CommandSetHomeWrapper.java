@@ -31,7 +31,7 @@ public class CommandSetHomeWrapper extends CommandWrapper {
 
         if (isEnemyLand(player, location) || isWarzone(location)) {
             player.sendMessage(plugin.tr("event.sethome-prevented"));
-            return false;
+            return true;
         }
 
         return super.onCommand(sender, command, label, args);
