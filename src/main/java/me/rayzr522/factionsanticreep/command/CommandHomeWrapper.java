@@ -28,7 +28,7 @@ public class CommandHomeWrapper extends CommandWrapper {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player) || sender.hasPermission(FactionsAntiCreep.BYPASS_PERM)) {
             return super.onCommand(sender, command, label, args);
         }
 
