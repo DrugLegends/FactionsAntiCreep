@@ -20,6 +20,11 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
+
+        if (player.hasPermission(FactionsAntiCreep.BYPASS_PERM)) {
+            return;
+        }
+
         long lastPlayed = player.getLastPlayed();
         long now = System.currentTimeMillis();
 

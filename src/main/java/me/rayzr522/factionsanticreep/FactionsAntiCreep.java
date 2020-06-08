@@ -23,6 +23,8 @@ import java.util.logging.Level;
  * @author Rayzr
  */
 public class FactionsAntiCreep extends JavaPlugin {
+    public static final String BYPASS_PERM = "FactionsAntiCreep.bypass";
+
     private static FactionsAntiCreep instance;
     private MessageHandler messages = new MessageHandler();
     private final Set<CommandWrapper> commandWrapperSet = new HashSet<>();
