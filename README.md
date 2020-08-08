@@ -7,7 +7,3 @@ This is a simple plugin that teleports players on login in non-ally faction land
 ## Download
 
 Head over to the [releases page](https://github.com/Rayzr522/FactionsAntiCreep/releases) to grab the latest JAR.
-
-## Join Me
-
-[![Discord Badge](https://github.com/Rayzr522/ProjectResources/raw/master/RayzrDev/badge-small.png)](https://rayzr.dev/join)
