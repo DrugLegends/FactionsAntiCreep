@@ -37,6 +37,7 @@ public class PlayerListener implements Listener {
 
         if (isEnemyLand(player, location) || isWarzone(location)) {
             player.teleport(player.getWorld().getSpawnLocation());
+            player.teleport(player.getWorld().getSpawnLocation());
             player.sendMessage(plugin.tr("event.teleported"));
         }
     }
