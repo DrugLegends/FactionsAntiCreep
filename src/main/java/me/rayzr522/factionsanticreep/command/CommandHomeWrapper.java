@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static me.rayzr522.factionsanticreep.utils.FactionUtil.isEnemyLand;
-import static me.rayzr522.factionsanticreep.utils.FactionUtil.isWarzone;
+import static me.rayzr522.factionsanticreep.utils.FactionUtil.isSystemFaction;
 
 public class CommandHomeWrapper extends CommandWrapper {
     private final FactionsAntiCreep plugin;
@@ -38,7 +38,7 @@ public class CommandHomeWrapper extends CommandWrapper {
         List<EssentialsHome> homesToRemove = user.getHomes().stream()
                 .map(name -> EssentialsHome.fromUserHome(user, name).orElse(null))
                 .filter(Objects::nonNull)
-                .filter(home -> isWarzone(home.getLocation()) || isEnemyLand(player, home.getLocation()))
+                .filter(home -> isSystemFaction(home.getLocation()) || isEnemyLand(player, home.getLocation()))
                 .collect(Collectors.toList());
 
         homesToRemove.forEach(home -> {

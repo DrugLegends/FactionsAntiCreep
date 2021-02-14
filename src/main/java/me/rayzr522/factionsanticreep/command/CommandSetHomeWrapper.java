@@ -9,7 +9,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
 import static me.rayzr522.factionsanticreep.utils.FactionUtil.isEnemyLand;
-import static me.rayzr522.factionsanticreep.utils.FactionUtil.isWarzone;
+import static me.rayzr522.factionsanticreep.utils.FactionUtil.isSystemFaction;
 
 public class CommandSetHomeWrapper extends CommandWrapper {
     private final FactionsAntiCreep plugin;
@@ -29,7 +29,7 @@ public class CommandSetHomeWrapper extends CommandWrapper {
         Player player = (Player) sender;
         Location location = player.getLocation();
 
-        if (isEnemyLand(player, location) || isWarzone(location)) {
+        if (isEnemyLand(player, location) || isSystemFaction(location)) {
             player.sendMessage(plugin.tr("event.sethome-prevented"));
             return true;
         }

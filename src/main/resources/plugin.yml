@@ -3,10 +3,9 @@ main: me.rayzr522.factionsanticreep.FactionsAntiCreep
 name: ${project.name}
 description: ${project.description}
 version: ${project.version}
-author: Rayzr
+authors: [Rayzr, Ricky Lafleur]
 
 commands:
   factionsanticreep:
     description: The main command for FactionsAntiCreep.
     # aliases: []
-    usage: "\u00A7cRayzr hecc'd something up."

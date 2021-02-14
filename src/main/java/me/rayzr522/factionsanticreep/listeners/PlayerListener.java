@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import static me.rayzr522.factionsanticreep.utils.FactionUtil.isEnemyLand;
-import static me.rayzr522.factionsanticreep.utils.FactionUtil.isWarzone;
+import static me.rayzr522.factionsanticreep.utils.FactionUtil.isSystemFaction;
 
 public class PlayerListener implements Listener {
     private final FactionsAntiCreep plugin;
@@ -35,7 +35,7 @@ public class PlayerListener implements Listener {
 
         Location location = player.getLocation();
 
-        if (isEnemyLand(player, location) || isWarzone(location)) {
+        if (isEnemyLand(player, location) && !isSystemFaction(location)) {
             player.teleport(player.getWorld().getSpawnLocation());
             player.teleport(player.getWorld().getSpawnLocation());
             player.sendMessage(plugin.tr("event.teleported"));
